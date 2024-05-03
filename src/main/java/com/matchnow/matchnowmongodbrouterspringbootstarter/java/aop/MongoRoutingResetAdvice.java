@@ -3,14 +3,10 @@ package com.matchnow.matchnowmongodbrouterspringbootstarter.java.aop;
 import com.matchnow.matchnowmongodbrouterspringbootstarter.java.model.MongoRoutingContext;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-@Order(1)
 @Aspect
 @Component
-@ConditionalOnProperty(prefix = "spring.data.mongodb", name = "enable-routing", havingValue = "true")
 public class MongoRoutingResetAdvice {
     // TODO: 동적으로 포인트컷 설정할 수 있도록 변경
     @Before(
@@ -34,7 +30,7 @@ public class MongoRoutingResetAdvice {
         MongoRoutingContext.reset();
     }
 
-    @Before("@annotation(com.matchnow.matchnowmongodbrouter.annotations.MongoReset)")
+    @Before("@annotation(com.matchnow.matchnowmongodbrouterspringbootstarter.java.annotations.MongoReset)")
     public void onAnn() {
         MongoRoutingContext.reset();
     }
