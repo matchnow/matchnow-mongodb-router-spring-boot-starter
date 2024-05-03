@@ -3,6 +3,7 @@ package com.matchnow.matchnowmongodbrouterspringbootstarter.java.aop;
 import com.matchnow.matchnowmongodbrouterspringbootstarter.java.model.MongoRoutingContext;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 import static com.matchnow.matchnowmongodbrouterspringbootstarter.java.model.MongoRoutingStatus.READ;
@@ -10,7 +11,7 @@ import static com.matchnow.matchnowmongodbrouterspringbootstarter.java.model.Mon
 
 @Aspect
 @Component
-public class MongoRoutingAdvice {
+public class MongoRoutingAdvice implements Ordered {
     @Before(
             "@annotation(org.springframework.transaction.annotation.Transactional) || " +
                     "@annotation(com.matchnow.matchnowmongodbrouterspringbootstarter.java.annotations.MongoWrite)"
@@ -22,5 +23,10 @@ public class MongoRoutingAdvice {
     @Before("@annotation(com.matchnow.matchnowmongodbrouterspringbootstarter.java.annotations.MongoRead)")
     public void beforeRead() {
         MongoRoutingContext.setCurrentStatus(READ);
+    }
+
+    @Override
+    public int getOrder() {
+        return 2;
     }
 }

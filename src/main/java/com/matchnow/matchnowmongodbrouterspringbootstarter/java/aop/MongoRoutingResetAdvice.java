@@ -3,11 +3,12 @@ package com.matchnow.matchnowmongodbrouterspringbootstarter.java.aop;
 import com.matchnow.matchnowmongodbrouterspringbootstarter.java.model.MongoRoutingContext;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-public class MongoRoutingResetAdvice {
+public class MongoRoutingResetAdvice implements Ordered {
     // TODO: 동적으로 포인트컷 설정할 수 있도록 변경
     @Before(
             "@annotation(org.springframework.web.bind.annotation.GetMapping) || " +
@@ -33,5 +34,10 @@ public class MongoRoutingResetAdvice {
     @Before("@annotation(com.matchnow.matchnowmongodbrouterspringbootstarter.java.annotations.MongoReset)")
     public void onAnn() {
         MongoRoutingContext.reset();
+    }
+
+    @Override
+    public int getOrder() {
+        return 1;
     }
 }

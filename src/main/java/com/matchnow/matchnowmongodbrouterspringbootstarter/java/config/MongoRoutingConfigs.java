@@ -16,12 +16,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 
 import java.util.List;
 
-@Order(Ordered.HIGHEST_PRECEDENCE)
 @Configuration
 @EnableAspectJAutoProxy
 @EnableConfigurationProperties(MongoProperties.class)
@@ -41,13 +38,11 @@ public class MongoRoutingConfigs {
         return new MongoRoutingClient(writeClient, readClient);
     }
 
-    @Order(1)
     @Bean
     public MongoRoutingResetAdvice mongoRoutingResetAdvice() {
         return new MongoRoutingResetAdvice();
     }
 
-    @Order(2)
     @Bean
     public MongoRoutingAdvice mongoRoutingAdvice() {
         return new MongoRoutingAdvice();
