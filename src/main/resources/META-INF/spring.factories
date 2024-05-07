@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.matchnow.matchnowmongodbrouterspringbootstarter.java.config.MongoRoutingConfigs
+com.matchnow.matchnowmongodbrouter.java.config.MongoRoutingConfigs

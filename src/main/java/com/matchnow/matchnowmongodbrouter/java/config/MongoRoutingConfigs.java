@@ -1,10 +1,10 @@
-package com.matchnow.matchnowmongodbrouterspringbootstarter.java.config;
+package com.matchnow.matchnowmongodbrouter.java.config;
 
-import com.matchnow.matchnowmongodbrouterspringbootstarter.java.aop.MongoRoutingAdvice;
-import com.matchnow.matchnowmongodbrouterspringbootstarter.java.aop.MongoRoutingResetAdvice;
-import com.matchnow.matchnowmongodbrouterspringbootstarter.java.model.MongoRoutingClient;
-import com.matchnow.matchnowmongodbrouterspringbootstarter.java.model.MongoRoutingContext;
-import com.matchnow.matchnowmongodbrouterspringbootstarter.java.model.MongoRoutingStatus;
+import com.matchnow.matchnowmongodbrouter.java.aop.MongoRoutingAdvice;
+import com.matchnow.matchnowmongodbrouter.java.aop.MongoRoutingResetAdvice;
+import com.matchnow.matchnowmongodbrouter.java.model.MongoRoutingClient;
+import com.matchnow.matchnowmongodbrouter.java.model.MongoRoutingContext;
+import com.matchnow.matchnowmongodbrouter.java.model.MongoRoutingStatus;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
@@ -40,7 +40,7 @@ public class MongoRoutingConfigs {
     public void setDefaultRouting() {
         MongoRoutingContext.setDefaultStatus(defaultStatus);
     }
-    
+
     @Bean
     @Primary
     public MongoClient mongoRoutingClient(MongoClientSettings settings) {

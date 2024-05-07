@@ -1,4 +1,4 @@
-package com.matchnow.matchnowmongodbrouterspringbootstarter.java.model;
+package com.matchnow.matchnowmongodbrouter.java.model;
 
 import com.mongodb.ClientSessionOptions;
 import com.mongodb.client.*;

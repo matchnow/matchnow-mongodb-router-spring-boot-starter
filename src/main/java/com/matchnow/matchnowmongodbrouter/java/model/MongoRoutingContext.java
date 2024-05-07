@@ -1,10 +1,10 @@
-package com.matchnow.matchnowmongodbrouterspringbootstarter.java.model;
+package com.matchnow.matchnowmongodbrouter.java.model;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.NamedThreadLocal;
 
-import static com.matchnow.matchnowmongodbrouterspringbootstarter.java.model.MongoRoutingStatus.READ;
-import static com.matchnow.matchnowmongodbrouterspringbootstarter.java.model.MongoRoutingStatus.WRITE;
+import static com.matchnow.matchnowmongodbrouter.java.model.MongoRoutingStatus.READ;
+import static com.matchnow.matchnowmongodbrouter.java.model.MongoRoutingStatus.WRITE;
 
 @Slf4j
 public class MongoRoutingContext {

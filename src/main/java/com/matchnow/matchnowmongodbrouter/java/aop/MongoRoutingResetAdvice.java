@@ -1,6 +1,6 @@
-package com.matchnow.matchnowmongodbrouterspringbootstarter.java.aop;
+package com.matchnow.matchnowmongodbrouter.java.aop;
 
-import com.matchnow.matchnowmongodbrouterspringbootstarter.java.model.MongoRoutingContext;
+import com.matchnow.matchnowmongodbrouter.java.model.MongoRoutingContext;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.core.Ordered;
@@ -31,7 +31,7 @@ public class MongoRoutingResetAdvice implements Ordered {
         MongoRoutingContext.reset();
     }
 
-    @Before("@annotation(com.matchnow.matchnowmongodbrouterspringbootstarter.java.annotations.MongoReset)")
+    @Before("@annotation(com.matchnow.matchnowmongodbrouter.java.annotations.MongoReset)")
     public void onAnn() {
         MongoRoutingContext.reset();
     }
