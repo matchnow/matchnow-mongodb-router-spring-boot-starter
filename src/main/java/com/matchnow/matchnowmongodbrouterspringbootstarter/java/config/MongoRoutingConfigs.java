@@ -3,6 +3,8 @@ package com.matchnow.matchnowmongodbrouterspringbootstarter.java.config;
 import com.matchnow.matchnowmongodbrouterspringbootstarter.java.aop.MongoRoutingAdvice;
 import com.matchnow.matchnowmongodbrouterspringbootstarter.java.aop.MongoRoutingResetAdvice;
 import com.matchnow.matchnowmongodbrouterspringbootstarter.java.model.MongoRoutingClient;
+import com.matchnow.matchnowmongodbrouterspringbootstarter.java.model.MongoRoutingContext;
+import com.matchnow.matchnowmongodbrouterspringbootstarter.java.model.MongoRoutingStatus;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
@@ -17,6 +19,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Primary;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Configuration
@@ -30,6 +33,14 @@ public class MongoRoutingConfigs {
     @Value("${spring.data.mongodb.read.uri}")
     private String readUri;
 
+    @Value("${spring.data.mongodb.default-routing:READ}")
+    private MongoRoutingStatus defaultStatus;
+
+    @PostConstruct
+    public void setDefaultRouting() {
+        MongoRoutingContext.setDefaultStatus(defaultStatus);
+    }
+    
     @Bean
     @Primary
     public MongoClient mongoRoutingClient(MongoClientSettings settings) {

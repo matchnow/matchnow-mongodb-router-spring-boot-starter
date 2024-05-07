@@ -9,9 +9,17 @@ import static com.matchnow.matchnowmongodbrouterspringbootstarter.java.model.Mon
 @Slf4j
 public class MongoRoutingContext {
     private static final ThreadLocal<MongoRoutingStatus> currentStatus = new NamedThreadLocal<>("Mongo routing status");
+    private static MongoRoutingStatus defaultStatus = null;
+
+    public static void setDefaultStatus(MongoRoutingStatus status) {
+        if (defaultStatus != null) {
+            throw new IllegalArgumentException("defaultStatus already set to " + defaultStatus);
+        }
+        defaultStatus = status;
+    }
 
     public static MongoRoutingStatus getCurrentStatus() {
-        return currentStatus.get() == null ? READ : currentStatus.get();
+        return currentStatus.get() == null ? defaultStatus : currentStatus.get();
     }
 
     public static void setCurrentStatus(MongoRoutingStatus status) {

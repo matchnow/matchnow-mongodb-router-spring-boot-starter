@@ -19,7 +19,7 @@ public class MongoRoutingAdvice implements Ordered {
     public void beforeWrite() {
         MongoRoutingContext.setCurrentStatus(WRITE);
     }
-
+    
     @Before("@annotation(com.matchnow.matchnowmongodbrouterspringbootstarter.java.annotations.MongoRead)")
     public void beforeRead() {
         MongoRoutingContext.setCurrentStatus(READ);
