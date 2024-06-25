@@ -11,14 +11,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class MongoRoutingResetAdvice implements Ordered {
 
-    @Pointcut("within(@org.springframework.stereotype.Controller *)")
+    @Pointcut("within(@org.springframework.web.bind.annotation.RestController *)")
     public void allControllers() {
     }
 
     @Pointcut("execution(* *(..))")
     public void allMethods() {
     }
-
+    
     @Before("allControllers() && allMethods()")
     public void beforeController() {
         MongoRoutingContext.reset();
