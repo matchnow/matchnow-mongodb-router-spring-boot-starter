@@ -3,20 +3,23 @@ package com.matchnow.matchnowmongodbrouter.java.aop;
 import com.matchnow.matchnowmongodbrouter.java.model.MongoRoutingContext;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
 public class MongoRoutingResetAdvice implements Ordered {
-    // TODO: 동적으로 포인트컷 설정할 수 있도록 변경
-    @Before(
-            "@annotation(org.springframework.web.bind.annotation.GetMapping) || " +
-                    "@annotation(org.springframework.web.bind.annotation.PostMapping) || " +
-                    "@annotation(org.springframework.web.bind.annotation.PutMapping) || " +
-                    "@annotation(org.springframework.web.bind.annotation.PatchMapping) || " +
-                    "@annotation(org.springframework.web.bind.annotation.DeleteMapping)"
-    )
+
+    @Pointcut("within(@org.springframework.stereotype.Controller *)")
+    public void allControllers() {
+    }
+
+    @Pointcut("execution(* *(..))")
+    public void allMethods() {
+    }
+
+    @Before("allControllers() && allMethods()")
     public void beforeController() {
         MongoRoutingContext.reset();
     }
