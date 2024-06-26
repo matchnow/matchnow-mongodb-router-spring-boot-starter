@@ -12,20 +12,29 @@ import org.springframework.stereotype.Component;
 public class MongoRoutingResetAdvice implements Ordered {
 
     @Pointcut("within(@org.springframework.web.bind.annotation.RestController *)")
-    public void allControllers() {
+    public void controllerBeans() {
+    }
+
+    @Pointcut("within(@org.springframework.scheduling.annotation.Async *)")
+    public void asyncBeans() {
     }
 
     @Pointcut("execution(* *(..))")
     public void allMethods() {
     }
-    
-    @Before("allControllers() && allMethods()")
+
+    @Before("controllerBeans() && allMethods()")
     public void beforeController() {
         MongoRoutingContext.reset();
     }
 
     @Before("@annotation(org.springframework.scheduling.annotation.Scheduled)")
     public void beforeSchedule() {
+        MongoRoutingContext.reset();
+    }
+
+    @Before("asyncBeans() && allMethods()")
+    public void beforeAsyncBeans() {
         MongoRoutingContext.reset();
     }
 
