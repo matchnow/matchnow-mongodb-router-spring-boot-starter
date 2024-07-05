@@ -1,3 +1,7 @@
+# Version 0.0.3
+
+- 배포용 버전업
+
 # Version 0.0.2
 
 - @XXXMapping이 아닌 컨트롤러 메서드 직전 MongoRoutingStatus.reset()🎉
