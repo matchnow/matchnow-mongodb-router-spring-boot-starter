@@ -1,3 +1,7 @@
+# Version 0.0.4
+
+- write client 에 readPreference = secondary 가 적용되는 이슈 해결
+
 # Version 0.0.3
 
 - 배포용 버전업

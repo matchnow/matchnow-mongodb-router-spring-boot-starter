@@ -6,7 +6,7 @@
 
     <groupId>com.matchnow</groupId>
     <artifactId>matchnow-mongodb-router-spring-boot-starter</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.4-SNAPSHOT</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
