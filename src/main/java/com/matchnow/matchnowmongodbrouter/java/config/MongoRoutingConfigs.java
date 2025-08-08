@@ -7,6 +7,7 @@ import com.matchnow.matchnowmongodbrouter.java.model.MongoRoutingContext;
 import com.matchnow.matchnowmongodbrouter.java.model.MongoRoutingStatus;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
+import com.mongodb.ReadPreference;
 import com.mongodb.client.MongoClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -44,8 +45,8 @@ public class MongoRoutingConfigs {
     @Bean
     @Primary
     public MongoClient mongoRoutingClient(MongoClientSettings settings) {
-        MongoClient writeClient = new MongoClientFactory(List.of(builderCustomizer(writeUri))).createMongoClient(settings);
-        MongoClient readClient = new MongoClientFactory(List.of(builderCustomizer(readUri))).createMongoClient(settings);
+        MongoClient writeClient = new MongoClientFactory(List.of(writeCustomizer(writeUri))).createMongoClient(MongoClientSettings.builder().build());
+        MongoClient readClient = new MongoClientFactory(List.of(readCustomizer(readUri))).createMongoClient(MongoClientSettings.builder().build());
         return new MongoRoutingClient(writeClient, readClient);
     }
 
@@ -59,7 +60,13 @@ public class MongoRoutingConfigs {
         return new MongoRoutingAdvice();
     }
 
-    private MongoClientSettingsBuilderCustomizer builderCustomizer(String uri) {
-        return it -> it.applyConnectionString(new ConnectionString(uri));
+    private MongoClientSettingsBuilderCustomizer writeCustomizer(String uri) {
+        return b -> b.applyConnectionString(new ConnectionString(uri))
+                .readPreference(ReadPreference.primary());              // force primary
+    }
+
+    private MongoClientSettingsBuilderCustomizer readCustomizer(String uri) {
+        return b -> b.applyConnectionString(new ConnectionString(uri))
+                .readPreference(ReadPreference.secondaryPreferred());   // prefer secondary, fallback OK
     }
 }
